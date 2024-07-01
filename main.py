@@ -130,6 +130,21 @@ def print_order(order):
         on=colors.background["yellow"],
     )
 
+def get_total_order_amount(order: List[PurchaseItem]) -> float:
+    """
+    The total cost of all the items ordered
+    """
+    return sum(item.price for item in order)
+
+def get_service_charge(order: List[PurchaseItem]) -> float:
+    """
+    For every Rs. 100, the service charge amount should increase by 1% of order amount, up to a max of 20%
+    """
+    total_amount = get_total_order_amount(order)
+    service_charge_percentage = min((total_amount // 100) * 0.01, 0.20)
+    return round(total_amount * service_charge_percentage,2)
+
+
 
 print()
 utils.cprint(
